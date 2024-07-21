@@ -10,6 +10,17 @@ class PerjanjianController extends Controller
 {
     public function submit(Request $request)
     {
+        // Pengecekan apakah pasien sudah memiliki perjanjian dengan jadwal yang sama dan status belum_selesai
+        $existingAppointment = Perjanjian::where('pasien_id', $request->pasien_id)
+            ->where('jadwal_id', $request->jadwal_id)
+            ->where('status_perjanjian', 'belum_selesai')
+            ->first();
+
+        if ($existingAppointment) {
+            // Jika ditemukan perjanjian yang sama dengan status belum_selesai, kirim pesan error
+            return redirect('/adminperjanjian')
+                ->with('error', 'Pasien sudah memiliki perjanjian dengan jadwal yang sama.');
+        }
         // Simpan data perjanjian
         $perjanjian = new Perjanjian();
         $perjanjian->pasien_id = $request->pasien_id;
@@ -28,6 +39,18 @@ class PerjanjianController extends Controller
 
     public function pasienSubmit(Request $request)
     {
+        // Pengecekan apakah pasien sudah memiliki perjanjian dengan jadwal yang sama dan status belum_selesai
+        $existingAppointment = Perjanjian::where('pasien_id', $request->pasien_id)
+            ->where('jadwal_id', $request->jadwal_id)
+            ->where('status_perjanjian', 'belum_selesai')
+            ->first();
+
+        if ($existingAppointment) {
+            // Jika ditemukan perjanjian yang sama dengan status belum_selesai, kirim pesan error
+            return redirect('/dashboardpasien')
+                ->with('error', 'Anda sudah memiliki perjanjian dengan jadwal yang sama.');
+        }
+
         // Simpan data perjanjian
         $perjanjian = new Perjanjian();
         $perjanjian->pasien_id = $request->pasien_id;
