@@ -30,7 +30,7 @@ class DokterSessionController extends Controller
         if (Auth::guard('dokter')->attempt($infologin)) {
             return redirect()->intended('/dokterdashboard');
         } else {
-            return 'gagal';
+            return redirect('/dokterlogin')->with('error', 'Email atau password salah.');
         }
     }
 

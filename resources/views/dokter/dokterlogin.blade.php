@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 
@@ -59,7 +60,27 @@
     </div>
     </main>
     </div>
+    <script>
+        @if (session('message'))
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+            }
+            toastr.success('{{ session('message') }}', "Berhasil", {
+                timeOut: 10000
+            });
+        @endif
 
+        @if (session('error'))
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+            }
+            toastr.error('{{ session('error') }}', "Gagal", {
+                timeOut: 10000
+            });
+        @endif
+    </script>
 </body>
 
 </html>

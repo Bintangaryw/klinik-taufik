@@ -30,7 +30,7 @@ class SessionController extends Controller
         if (Auth::guard('pasien')->attempt($infologin)) {
             return redirect()->intended('/dashboardpasien');
         } else {
-            return redirect()->route('pasienlogin.index')->with('error', 'Nomor telepon atau password salah.');
+            return redirect()->route('pasienlogin.index')->with('error', 'Username atau password salah.');
         }
     }
 

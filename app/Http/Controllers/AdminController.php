@@ -30,7 +30,7 @@ class AdminController extends Controller
         if (Auth::guard('admin')->attempt($infologin)) {
             return redirect()->intended('/admindashboard');
         } else {
-            return 'gagal';
+            return redirect('/admin-klinik-loginform')->with('error', 'Username atau password salah.');
         }
     }
 
